@@ -43,7 +43,6 @@ DS4_BUTTON_RS = 318
 
 
 def create_device():
-    """Creates a uinput device using the specified layout."""
     events = {ecodes.EV_ABS: [], ecodes.EV_KEY: [], ecodes.EV_REL: []}
 
     events[ecodes.EV_ABS].append((ecodes.ABS_X, {}))
