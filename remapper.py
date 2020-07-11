@@ -41,6 +41,7 @@ DS4_BUTTON_L2 = 312
 DS4_BUTTON_LS = 317
 DS4_BUTTON_RS = 318
 
+DS4_NAMES = [ 'Sony Interactive Entertainment Wireless Controller', 'Sony Computer Entertainment Wireless Controller' ]
 
 def translate(value, leftMin, leftMax, rightMin, rightMax):
     leftSpan = leftMax - leftMin
@@ -82,7 +83,7 @@ devices = [evdev.InputDevice(path) for path in evdev.list_devices()]
 ds4 = None
 for device in devices:
     print(device.path, device.name, device.phys)
-    if device.name == 'Sony Computer Entertainment Wireless Controller':
+    if device.name in DS4_NAMES:
         print("Found DS4")
         ds4 = device
         break
