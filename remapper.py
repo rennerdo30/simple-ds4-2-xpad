@@ -94,59 +94,44 @@ if ds4 is not None:
         if event.type == ecodes.EV_KEY:
             print(event.code)
             if event.code == DS4_BUTTON_TRIANGLE:
-                print("DS4_BUTTON_TRIANGLE")
                 xbox_controller.write(
                     ecodes.EV_KEY, XBOX_BUTTON_TRIANGLE, event.value)
             elif event.code == DS4_BUTTON_O:
-                print("DS4_BUTTON_O")
                 xbox_controller.write(
                     ecodes.EV_KEY, XBOX_BUTTON_O, event.value)
             elif event.code == DS4_BUTTON_X:
-                print("DS4_BUTTON_X")
                 xbox_controller.write(
                     ecodes.EV_KEY, XBOX_BUTTON_X, event.value)
-            elif event.code == DS4_BUTTON_RECTANGLE:
-                print("DS4_BUTTON_RECTANGLE")
+            elif event.code == DS4_BUTTON_RECTANGLE:)
                 xbox_controller.write(
                     ecodes.EV_KEY, XBOX_BUTTON_RECTANGLE, event.value)
             elif event.code == DS4_BUTTON_SHARE:
-                print("DS4_BUTTON_SHARE")
                 xbox_controller.write(
                     ecodes.EV_KEY, XBOX_BUTTON_SHARE, event.value)
             elif event.code == DS4_BUTTON_OPTIONS:
-                print("DS4_BUTTON_OPTIONS")
                 xbox_controller.write(
                     ecodes.EV_KEY, XBOX_BUTTON_OPTIONS, event.value)
             elif event.code == DS4_BUTTON_PLAYSTATION:
-                print("DS4_BUTTON_PLAYSTATION")
                 xbox_controller.write(
                     ecodes.EV_KEY, XBOX_BUTTON_PLAYSTATION, event.value)
             elif event.code == DS4_BUTTON_R1:
-                print("DS4_BUTTON_R1")
                 xbox_controller.write(
                     ecodes.EV_KEY, XBOX_BUTTON_R1, event.value)
             elif event.code == DS4_BUTTON_R2:
-                print("DS4_BUTTON_R2")
                 continue
             elif event.code == DS4_BUTTON_L1:
-                print("DS4_BUTTON_L1")
                 xbox_controller.write(
                     ecodes.EV_KEY, XBOX_BUTTON_L1, event.value)
             elif event.code == DS4_BUTTON_L2:
-                print("DS4_BUTTON_L2")
                 continue
             elif event.code == DS4_BUTTON_LS:
-                print("DS4_BUTTON_LS")
                 xbox_controller.write(
                     ecodes.EV_KEY, XBOX_BUTTON_LS, event.value)
             elif event.code == DS4_BUTTON_RS:
-                print("DS4_BUTTON_RS")
                 xbox_controller.write(
                     ecodes.EV_KEY, XBOX_BUTTON_RS, event.value)
         elif event.type == ecodes.EV_ABS:
             absevent = categorize(event)
-            print(ecodes.bytype[absevent.event.type]
-                  [absevent.event.code], absevent.event.value)
 
             if absevent.event.code == ecodes.ABS_Y or absevent.event.code == ecodes.ABS_X or absevent.event.code == ecodes.ABS_RY or absevent.event.code == ecodes.ABS_RX:
                 value = int(translate(absevent.event.value, 0, 255, -32768, 32767))
