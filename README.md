@@ -9,4 +9,4 @@ One major downside of this script is, that is does not offer any special feature
 It just remaps your buttons and fixes some ranges.
 
 ## Installtion
-Just download `remapper.py`, install `python-evdev` and run it with `sudo`
+Just download `remapper.py`, install `python-evdev` and run it with `python remapper.py`
