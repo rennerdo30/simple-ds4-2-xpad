@@ -89,10 +89,8 @@ for device in devices:
 
 if ds4 is not None:
     xbox_controller = create_device()
-    print(xbox_controller.capabilities(True))
     for event in ds4.read_loop():
         if event.type == ecodes.EV_KEY:
-            print(event.code)
             if event.code == DS4_BUTTON_TRIANGLE:
                 xbox_controller.write(
                     ecodes.EV_KEY, XBOX_BUTTON_TRIANGLE, event.value)
@@ -102,7 +100,7 @@ if ds4 is not None:
             elif event.code == DS4_BUTTON_X:
                 xbox_controller.write(
                     ecodes.EV_KEY, XBOX_BUTTON_X, event.value)
-            elif event.code == DS4_BUTTON_RECTANGLE:)
+            elif event.code == DS4_BUTTON_RECTANGLE:
                 xbox_controller.write(
                     ecodes.EV_KEY, XBOX_BUTTON_RECTANGLE, event.value)
             elif event.code == DS4_BUTTON_SHARE:
