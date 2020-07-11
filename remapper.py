@@ -42,6 +42,13 @@ DS4_BUTTON_LS = 317
 DS4_BUTTON_RS = 318
 
 
+def translate(value, leftMin, leftMax, rightMin, rightMax):
+    leftSpan = leftMax - leftMin
+    rightSpan = rightMax - rightMin
+    valueScaled = float(value - leftMin) / float(leftSpan)
+    return rightMin + (valueScaled * rightSpan)
+
+
 def create_device():
     events = {ecodes.EV_ABS: [], ecodes.EV_KEY: [], ecodes.EV_REL: []}
 
@@ -78,8 +85,7 @@ for device in devices:
     if device.name == 'Sony Computer Entertainment Wireless Controller':
         print("Found DS4")
         ds4 = device
-        if dragon is not None:
-            break
+        break
 
 if ds4 is not None:
     xbox_controller = create_device()
@@ -121,16 +127,14 @@ if ds4 is not None:
                     ecodes.EV_KEY, XBOX_BUTTON_R1, event.value)
             elif event.code == DS4_BUTTON_R2:
                 print("DS4_BUTTON_R2")
-                xbox_controller.write(
-                    ecodes.EV_KEY, XBOX_BUTTON_R2, event.value)
+                continue
             elif event.code == DS4_BUTTON_L1:
                 print("DS4_BUTTON_L1")
                 xbox_controller.write(
                     ecodes.EV_KEY, XBOX_BUTTON_L1, event.value)
             elif event.code == DS4_BUTTON_L2:
                 print("DS4_BUTTON_L2")
-                xbox_controller.write(
-                    ecodes.EV_KEY, XBOX_BUTTON_L2, event.value)
+                continue
             elif event.code == DS4_BUTTON_LS:
                 print("DS4_BUTTON_LS")
                 xbox_controller.write(
@@ -141,6 +145,23 @@ if ds4 is not None:
                     ecodes.EV_KEY, XBOX_BUTTON_RS, event.value)
         elif event.type == ecodes.EV_ABS:
             absevent = categorize(event)
-            xbox_controller.write(ecodes.EV_ABS, absevent.event.code, absevent.event.value)
-            print (ecodes.bytype[absevent.event.type][absevent.event.code], absevent.event.value)
+            print(ecodes.bytype[absevent.event.type]
+                  [absevent.event.code], absevent.event.value)
+
+            if absevent.event.code == ecodes.ABS_Y or absevent.event.code == ecodes.ABS_X or absevent.event.code == ecodes.ABS_RY or absevent.event.code == ecodes.ABS_RX:
+                value = int(translate(absevent.event.value, 0, 255, -32768, 32767))
+                xbox_controller.write(
+                    ecodes.EV_ABS, absevent.event.code, value)
+            elif absevent.event.code == ecodes.ABS_Z:
+                value = int(translate(absevent.event.value, 0, 255, -32768, 32767))
+                xbox_controller.write(
+                    ecodes.EV_ABS, absevent.event.code, value)
+            elif absevent.event.code == ecodes.ABS_RZ:
+                value = int(translate(absevent.event.value, 0, 255, -32768, 32767))
+                xbox_controller.write(
+                    ecodes.EV_ABS, absevent.event.code, value)
+            else:
+                xbox_controller.write(
+                    ecodes.EV_ABS, absevent.event.code, absevent.event.value)
+
         xbox_controller.syn()
